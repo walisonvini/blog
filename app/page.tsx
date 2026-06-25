@@ -1,26 +1,32 @@
-import ArticleItemList from "@/components/ArticleListItem";
-import { getCategoriedArticles } from "@/lib/articles";
+import ArticleListItem from "@/components/ArticleListItem";
+import { getAllArticles } from "@/lib/articles";
+import { siteConfig } from "@/lib/site";
 
 const HomePage = () => {
-  const articles = getCategoriedArticles();
+  const articles = getAllArticles();
 
   return (
-    <section className="mx-auto w-11/12 md:w-1/2 mt-20 flex flex-col gap-16 mb-20">
-      <header className="font-cormorant-garamond font-light text-6xl text-neutral-900 text-center">
-        <h1>minimal blog</h1>
+    <section className="mx-auto max-w-3xl px-6 py-12">
+      <header className="mb-10">
+        <h1 className="text-3xl font-bold tracking-tight">Artigos</h1>
+        <p className="mt-2 font-mono text-sm text-muted">
+          {siteConfig.description}
+        </p>
       </header>
-      <section className="md:grid md:grid-cols-2 flex flex-col gap-10">
-        {articles !== null &&
-          Object.keys(articles).map((article) => (
-            <ArticleItemList
-              category={article}
-              articles={articles[article]}
-              key={article}
-            />
-        ))}
-      </section>
+
+      {articles.length === 0 ? (
+        <p className="font-mono text-sm text-muted">
+          Nenhum artigo publicado ainda.
+        </p>
+      ) : (
+        <ul className="divide-y divide-border">
+          {articles.map((article) => (
+            <ArticleListItem article={article} key={article.id} />
+          ))}
+        </ul>
+      )}
     </section>
-  )
-}
+  );
+};
 
 export default HomePage;

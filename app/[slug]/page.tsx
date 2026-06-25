@@ -1,26 +1,36 @@
-import Link from "next/link"
-import { ArrowLeftIcon } from "@heroicons/react/24/solid"
-import { getArticleData } from "@/lib/articles"
+import Link from "next/link";
+import ArticleContent from "@/components/ArticleContent";
+import { getArticleData } from "@/lib/articles";
 
 const Article = async ({ params }: { params: Promise<{ slug: string }> }) => {
-  const { slug } = await params
-  const articleData = await getArticleData(slug)
+  const { slug } = await params;
+  const articleData = await getArticleData(slug);
 
   return (
-    <section className="mx-auto w-10/12 md:w-1/2 mt-20 flex flex-col gap-5">
-      <div className="flex justify-between font-poppins">
-        <Link href={"/"} className="flex flex-row gap-1 place-items-center">
-          <ArrowLeftIcon width={20} />
-          <p>back to home</p>
+    <section className="mx-auto max-w-3xl px-6 py-12">
+      <nav className="mb-8 font-mono text-sm text-muted">
+        <Link href="/" className="transition-colors hover:text-foreground">
+          Início
         </Link>
-        <p>{articleData.date.toString()}</p>
-      </div>
-      <article
-        className="article"
-        dangerouslySetInnerHTML={{ __html: articleData.contentHtml }}
-      />
-    </section>
-  )
-}
+        <span className="mx-2">»</span>
+        <span className="text-foreground">{articleData.title}</span>
+      </nav>
 
-export default Article
+      <header className="mb-10 border-b border-border pb-8">
+        <p className="mb-3 font-mono text-xs uppercase tracking-widest text-accent">
+          {articleData.category}
+        </p>
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+          {articleData.title}
+        </h1>
+        <time className="mt-4 block font-mono text-sm text-muted">
+          {articleData.date.toString()}
+        </time>
+      </header>
+
+      <ArticleContent html={articleData.contentHtml} />
+    </section>
+  );
+};
+
+export default Article;

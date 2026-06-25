@@ -2,12 +2,17 @@ import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
 import moment from "moment";
-import { remark } from "remark";
-import html from "remark-html";
+import "moment/locale/pt-br";
+import { renderMarkdown } from "@/lib/markdown";
 
 import type { ArticleItem } from "@/types";
 
+moment.locale("pt-br");
+
 const articDirectory = path.join(process.cwd(), "articles");
+
+const formatDate = (date: string) =>
+  moment(date, "DD-MM-YYYY").format("D [de] MMMM [de] YYYY");
 
 const getSortedArticles = (): ArticleItem[] => {
   const fileNames = fs.readdirSync(articDirectory);
@@ -24,6 +29,7 @@ const getSortedArticles = (): ArticleItem[] => {
       id,
       title: matterResult.data.title,
       date: matterResult.data.date,
+      formattedDate: formatDate(matterResult.data.date),
       category: matterResult.data.category,
     };
   });
@@ -41,6 +47,10 @@ const getSortedArticles = (): ArticleItem[] => {
       return 0;
     }
   });
+};
+
+export const getAllArticles = (): ArticleItem[] => {
+  return getSortedArticles().reverse();
 };
 
 export const getCategoriedArticles = (): Record<string, ArticleItem[]> => {
@@ -64,17 +74,13 @@ export const getArticleData = async (id: string) => {
 
   const matterResult = matter(fileContents);
 
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content);
-
-  const contentHtml = processedContent.toString();
+  const processedContent = await renderMarkdown(matterResult.content);
 
   return {
     id,
-    contentHtml,
+    contentHtml: processedContent,
     title: matterResult.data.title,
     category: matterResult.data.category,
-    date: moment(matterResult.data.date, "DD-MM-YYYY").format("MMMM Do YYYY"),
+    date: formatDate(matterResult.data.date),
   };
 };

@@ -1,28 +1,25 @@
-import Link from "next/link"
-import type { ArticleItem } from "@/types"
+import Link from "next/link";
+import type { ArticleItem } from "@/types";
 
 interface Props {
-  category: string
-  articles: ArticleItem[]
+  article: ArticleItem;
 }
 
-const ArticleItemList = ({ category, articles }: Props) => {
+const ArticleListItem = ({ article }: Props) => {
   return (
-    <div className="flex flex-col gap-5">
-      <h2 className="font-cormorant-garamond text-4xl">{category}</h2>
-      <div className="flex flex-col gap-2.5 font-poppins text-lg">
-        {articles.map((article, id) => (
-          <Link
-            href={`/${article.id}`}
-            key={id}
-            className="text-neutral-900 hover:text-amber-700 transition duration-150"
-          >
-            {article.title}
-          </Link>
-        ))}
-      </div>
-    </div>
-  )
-}
+    <li>
+      <Link href={`/${article.id}`} className="group block py-5">
+        <h2 className="text-xl font-semibold text-accent transition-opacity group-hover:opacity-80">
+          {article.title}
+        </h2>
+        <div className="mt-1.5 flex items-center gap-3 font-mono text-sm text-muted">
+          <time dateTime={article.date}>{article.formattedDate}</time>
+          <span className="text-border">·</span>
+          <span className="uppercase tracking-wider">{article.category}</span>
+        </div>
+      </Link>
+    </li>
+  );
+};
 
-export default ArticleItemList
+export default ArticleListItem;

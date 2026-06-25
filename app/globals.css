@@ -1,38 +1,125 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-cormorant-garamond: var(--font-cormorant-garamond);
-  --font-poppins: var(--font-poppins);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+
+  --color-background: #ffffff;
+  --color-foreground: #1c1c28;
+  --color-muted: #6b6b80;
+  --color-accent: #766bbf;
+  --color-border: #e8e6f0;
+  --color-surface: #f6f5fa;
+}
+
+body {
+  @apply bg-background font-sans text-foreground antialiased;
 }
 
 .article {
-  @apply flex flex-col gap-3 font-poppins text-lg tracking-wide mb-20;
+  @apply flex flex-col gap-5 font-sans text-base leading-relaxed text-foreground/90;
 }
 
 .article > h1 {
-  @apply font-cormorant-garamond text-4xl text-center tracking-tight;
+  @apply text-3xl font-bold tracking-tight text-foreground;
 }
 
 .article > h2 {
-  @apply font-cormorant-garamond text-3xl tracking-tight;
+  @apply mt-4 text-2xl font-semibold tracking-tight text-foreground;
+}
+
+.article > h3 {
+  @apply mt-2 text-xl font-semibold text-foreground;
+}
+
+.article > p {
+  @apply text-muted leading-7;
 }
 
 .article > ol {
-  @apply list-decimal flex flex-col mx-10 gap-2;
+  @apply flex list-decimal flex-col gap-2 pl-6 text-muted;
 }
 
 .article > ul {
-  @apply list-disc flex flex-col mx-10 gap-2;
+  @apply flex list-disc flex-col gap-2 pl-6 text-muted;
 }
 
-.article > pre {
-  @apply bg-neutral-950 text-neutral-50 p-5 overflow-scroll;
+/* Syntax-highlighted code blocks (rehype-pretty-code) */
+.article figure[data-rehype-pretty-code-figure] {
+  position: relative;
+  width: 100%;
+  margin-block: 1.25rem;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.article figure[data-rehype-pretty-code-figure] figcaption[data-rehype-pretty-code-title] {
+  padding: 0.45rem 1rem;
+  text-align: right;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  color: var(--color-muted);
+  border-bottom: 1px solid var(--color-border);
+  background-color: color-mix(in srgb, var(--color-surface) 75%, white);
+}
+
+.article figure[data-rehype-pretty-code-figure] pre {
+  position: relative;
+  margin: 0;
+  padding: 0.75rem 1rem 2.25rem;
+  overflow-x: auto;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  background: transparent !important;
+}
+
+.article figure[data-rehype-pretty-code-figure] pre code {
+  display: block !important;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  background: transparent !important;
+  white-space: pre;
+}
+
+.article figure[data-rehype-pretty-code-figure] pre code [data-line] {
+  display: block;
+}
+
+.article figure[data-rehype-pretty-code-figure] pre .code-copy-btn {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  background-color: color-mix(in srgb, var(--color-background) 85%, var(--color-surface));
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.65rem;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.article figure[data-rehype-pretty-code-figure] pre .code-copy-btn:hover {
+  color: var(--color-foreground);
+}
+
+.article :not(pre) > code {
+  @apply rounded bg-surface px-1.5 py-0.5 font-mono text-sm text-accent;
 }
 
 .article > blockquote {
-  @apply pl-5 italic border-l-2 border-neutral-600/40;
+  @apply border-l-2 border-accent/50 pl-4 italic text-muted;
 }
 
 .article > p > img {
-  @apply w-1/2 mx-auto;
+  @apply mx-auto w-full max-w-lg rounded-lg;
+}
+
+.article > a {
+  @apply text-accent underline-offset-2 hover:underline;
 }
