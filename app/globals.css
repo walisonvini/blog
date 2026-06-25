@@ -1,19 +1,42 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #ffffff;
+  --fg: #1c1c28;
+  --muted: #6b6b80;
+  --accent: #766bbf;
+  --border: #e8e6f0;
+  --surface: #f6f5fa;
+}
+
+.dark,
+html.dark {
+  --bg: #0f1419;
+  --fg: #e8eaed;
+  --muted: #8b949e;
+  --accent: #9b8fd4;
+  --border: #21262d;
+  --surface: #161b22;
+}
+
 @theme inline {
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
 
-  --color-background: #ffffff;
-  --color-foreground: #1c1c28;
-  --color-muted: #6b6b80;
-  --color-accent: #766bbf;
-  --color-border: #e8e6f0;
-  --color-surface: #f6f5fa;
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
 }
 
 body {
-  @apply bg-background font-sans text-foreground antialiased;
+  background-color: var(--bg);
+  color: var(--fg);
+  @apply font-sans antialiased;
 }
 
 .article {
@@ -44,6 +67,15 @@ body {
   @apply flex list-disc flex-col gap-2 pl-6 text-muted;
 }
 
+/* Syntax highlighting — dual theme (light + dark) */
+.article figure[data-rehype-pretty-code-figure] code span {
+  color: var(--shiki-light) !important;
+}
+
+.dark .article figure[data-rehype-pretty-code-figure] code span {
+  color: var(--shiki-dark) !important;
+}
+
 /* Syntax-highlighted code blocks (rehype-pretty-code) */
 .article figure[data-rehype-pretty-code-figure] {
   position: relative;
@@ -51,8 +83,8 @@ body {
   margin-block: 1.25rem;
   overflow: hidden;
   border-radius: 8px;
-  border: 1px solid var(--color-border);
-  background-color: var(--color-surface);
+  border: 1px solid var(--border);
+  background-color: var(--surface);
 }
 
 .article figure[data-rehype-pretty-code-figure] figcaption[data-rehype-pretty-code-title] {
@@ -60,9 +92,9 @@ body {
   text-align: right;
   font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
   font-size: 0.7rem;
-  color: var(--color-muted);
-  border-bottom: 1px solid var(--color-border);
-  background-color: color-mix(in srgb, var(--color-surface) 75%, white);
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  background-color: color-mix(in srgb, var(--surface) 75%, var(--bg));
 }
 
 .article figure[data-rehype-pretty-code-figure] pre {
@@ -95,17 +127,17 @@ body {
   bottom: 0.5rem;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  border: 1px solid var(--color-border);
-  background-color: color-mix(in srgb, var(--color-background) 85%, var(--color-surface));
+  border: 1px solid var(--border);
+  background-color: color-mix(in srgb, var(--bg) 85%, var(--surface));
   font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
   font-size: 0.65rem;
-  color: var(--color-muted);
+  color: var(--muted);
   cursor: pointer;
   transition: color 0.15s;
 }
 
 .article figure[data-rehype-pretty-code-figure] pre .code-copy-btn:hover {
-  color: var(--color-foreground);
+  color: var(--fg);
 }
 
 .article :not(pre) > code {

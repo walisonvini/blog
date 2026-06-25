@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/site";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navLinks = [
   { href: "/", label: "Artigos" },
@@ -33,7 +34,7 @@ const Header = () => {
           {siteConfig.name}
         </Link>
 
-        <nav className="flex items-center gap-6">
+        <nav className="flex items-center gap-4">
           {navLinks.map(({ href, label }) => (
             <Link
               key={href}
@@ -50,6 +51,7 @@ const Header = () => {
               )}
             </Link>
           ))}
+          <ThemeToggle />
         </nav>
       </div>
     </header>
