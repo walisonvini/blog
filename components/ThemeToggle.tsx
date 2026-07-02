@@ -10,17 +10,13 @@ const ThemeToggle = () => {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) {
-    return <span className="inline-block h-8 w-8" aria-hidden />;
-  }
-
-  const isDark = resolvedTheme === "dark";
+  const isDark = mounted && resolvedTheme === "dark";
 
   return (
     <button
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="rounded-md p-1.5 text-muted transition-colors hover:text-foreground"
+      className="shrink-0 rounded-md border border-border p-1.5 text-foreground/70 transition-colors hover:bg-surface hover:text-foreground"
       aria-label={isDark ? "Ativar modo claro" : "Ativar modo escuro"}
     >
       {isDark ? (

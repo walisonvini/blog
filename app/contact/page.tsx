@@ -3,9 +3,6 @@ const ContactPage = () => {
     <section className="mx-auto max-w-3xl px-6 py-12">
       <header className="mb-10">
         <h1 className="text-3xl font-bold tracking-tight">Contato</h1>
-        <p className="mt-2 font-mono text-sm text-muted">
-          Fale comigo — adoraria ouvir você.
-        </p>
       </header>
 
       <div className="flex flex-col gap-5 text-muted leading-7">
@@ -16,10 +13,10 @@ const ContactPage = () => {
         <p>
           E-mail:{" "}
           <a
-            href="mailto:hello@example.com"
+            href="mailto:walison.vinicios12@gmail.com"
             className="text-accent transition-opacity hover:opacity-80"
           >
-            hello@example.com
+            walison.vinicios12@gmail.com
           </a>
         </p>
       </div>

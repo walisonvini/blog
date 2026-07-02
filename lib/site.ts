@@ -1,4 +1,4 @@
 export const siteConfig = {
   name: "Blog",
-  description: "Reflexões sobre software, negócios e vida.",
+  description: "Reflexões sobre computação, engenharia de software, livros e outros assuntos que influenciam a maneira como penso e construo software.",
 };

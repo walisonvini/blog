@@ -26,33 +26,35 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-6">
+      <div className="mx-auto flex h-14 max-w-3xl items-center justify-between gap-3 px-4 sm:px-6">
         <Link
           href="/"
-          className="font-sans text-lg font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80"
+          className="shrink-0 font-sans text-lg font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80"
         >
           {siteConfig.name}
         </Link>
 
-        <nav className="flex items-center gap-4">
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={`relative text-sm transition-colors ${
-                isActive(href)
-                  ? "text-accent"
-                  : "text-muted hover:text-foreground"
-              }`}
-            >
-              {label}
-              {isActive(href) && (
-                <span className="absolute -bottom-[17px] left-0 h-0.5 w-full rounded-full bg-accent" />
-              )}
-            </Link>
-          ))}
+        <div className="flex min-w-0 items-center gap-2 sm:gap-4">
+          <nav className="flex items-center gap-3 sm:gap-5">
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`relative shrink-0 text-sm transition-colors ${
+                  isActive(href)
+                    ? "text-accent"
+                    : "text-muted hover:text-foreground"
+                }`}
+              >
+                {label}
+                {isActive(href) && (
+                  <span className="absolute -bottom-[17px] left-0 h-0.5 w-full rounded-full bg-accent" />
+                )}
+              </Link>
+            ))}
+          </nav>
           <ThemeToggle />
-        </nav>
+        </div>
       </div>
     </header>
   );
