@@ -1,3 +1,12 @@
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Sobre mim",
+  description:
+    "Conheça Walison Ribeiro — desenvolvedor back-end, formado em Ciência da Computação e autor deste blog sobre computação e engenharia de software.",
+  path: "/about",
+});
+
 const AboutPage = () => {
   return (
     <section className="mx-auto max-w-3xl px-6 py-12">

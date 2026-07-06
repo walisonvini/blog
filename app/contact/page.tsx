@@ -1,3 +1,12 @@
+import { createPageMetadata } from "@/lib/seo";
+
+export const metadata = createPageMetadata({
+  title: "Contato",
+  description:
+    "Entre em contato com Walison Ribeiro por e-mail para perguntas, colaborações ou conversas sobre tecnologia.",
+  path: "/contact",
+});
+
 const ContactPage = () => {
   return (
     <section className="mx-auto max-w-3xl px-6 py-12">

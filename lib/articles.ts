@@ -10,6 +10,8 @@ type GeneratedArticle = {
   id: string;
   title: string;
   date: string;
+  publishedAt: string;
+  description: string;
   category: string;
   contentHtml: string;
 };
@@ -27,6 +29,8 @@ const getSortedArticles = (): ArticleItem[] => {
     title: article.title,
     date: article.date,
     formattedDate: formatDate(article.date),
+    publishedAt: article.publishedAt,
+    description: article.description,
     category: article.category,
   }));
 
@@ -77,6 +81,8 @@ export const getArticleData = async (id: string) => {
     title: article.title,
     category: article.category,
     date: formatDate(article.date),
+    publishedAt: article.publishedAt,
+    description: article.description,
   };
 };
 

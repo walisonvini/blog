@@ -1,8 +1,15 @@
 import ArticleListItem from "@/components/ArticleListItem";
 import { getAllArticles } from "@/lib/articles";
+import { createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
+
+export const metadata = createPageMetadata({
+  title: "Artigos",
+  description: siteConfig.description,
+  path: "/",
+});
 
 const HomePage = () => {
   const articles = getAllArticles();
