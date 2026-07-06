@@ -1,6 +1,12 @@
 import Link from "next/link";
 import ArticleContent from "@/components/ArticleContent";
-import { getArticleData } from "@/lib/articles";
+import { getAllArticles, getArticleData } from "@/lib/articles";
+
+export const dynamic = "force-static";
+
+export const generateStaticParams = () => {
+  return getAllArticles().map((article) => ({ slug: article.id }));
+};
 
 const Article = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
